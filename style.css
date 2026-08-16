@@ -1,0 +1,319 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f5f3ff;
+    color: #29243a;
+}
+
+/* ================================
+   Gemini API Key Section
+   ================================ */
+
+.api-section {
+    margin-top: 20px;
+    padding: 18px;
+    background: #f7f5ff;
+    border: 1px solid #ddd6fe;
+    border-radius: 12px;
+}
+
+.api-section label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #333;
+}
+
+#apiKey {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 14px;
+    border: 1px solid #cfcfcf;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    background: white;
+}
+
+#apiKey:focus {
+    border-color: #7c3aed;
+    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.12);
+}
+
+.api-help {
+    margin-top: 8px;
+    font-size: 12px;
+    color: #666;
+    line-height: 1.4;
+}
+
+/* HEADER */
+
+.hero {
+    background: linear-gradient(
+        135deg,
+        #eee9ff,
+        #f7f3ff
+    );
+
+    padding: 35px 8%;
+
+    display: flex;
+    align-items: center;
+
+    gap: 18px;
+
+    border-bottom: 1px solid #ddd6f5;
+}
+
+.hero-icon {
+    font-size: 48px;
+}
+
+.hero h1 {
+    margin: 0;
+
+    font-size: 32px;
+
+    color: #30245c;
+}
+
+.hero p {
+    margin: 8px 0 0;
+
+    color: #716a82;
+
+    font-size: 16px;
+}
+
+
+/* MAIN */
+
+.container {
+    max-width: 1100px;
+
+    margin: auto;
+
+    padding: 35px 20px;
+}
+
+
+/* CARD */
+
+.card {
+    background: white;
+
+    padding: 28px;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 5px 25px rgba(55, 40, 100, 0.08);
+
+    margin-bottom: 30px;
+}
+
+.card h2,
+.analysis-section h2 {
+    color: #30245c;
+
+    margin-top: 0;
+
+    margin-bottom: 22px;
+}
+
+
+/* LABEL */
+
+label {
+    display: block;
+
+    font-weight: 600;
+
+    margin: 15px 0 8px;
+
+    color: #4a4260;
+}
+
+
+/* TEXTAREA */
+
+textarea {
+    width: 100%;
+
+    min-height: 180px;
+
+    padding: 16px;
+
+    border: 1px solid #d8d2e8;
+
+    border-radius: 12px;
+
+    resize: vertical;
+
+    font-size: 15px;
+
+    font-family: inherit;
+
+    outline: none;
+
+    background: #fff;
+}
+
+textarea:focus {
+    border-color: #7654d6;
+
+    box-shadow:
+        0 0 0 3px rgba(118, 84, 214, 0.12);
+}
+
+
+/* QUESTION */
+
+.question-box {
+    min-height: 80px;
+}
+
+
+/* BUTTON */
+
+button {
+    margin-top: 20px;
+
+    background: linear-gradient(
+        135deg,
+        #7654d6,
+        #6842c8
+    );
+
+    color: white;
+
+    border: none;
+
+    border-radius: 10px;
+
+    padding: 13px 24px;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+button:hover {
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 6px 15px rgba(104, 66, 200, 0.25);
+}
+
+button:disabled {
+    opacity: 0.6;
+
+    cursor: wait;
+}
+
+
+/* ANALYSIS */
+
+.analysis-section {
+    margin-top: 35px;
+}
+
+.results-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 20px;
+}
+
+
+/* RESULT CARD */
+
+.result-card {
+    background: white;
+
+    border-radius: 16px;
+
+    padding: 20px;
+
+    box-shadow:
+        0 5px 20px rgba(55, 40, 100, 0.07);
+}
+
+.result-card h3 {
+    margin-top: 0;
+
+    color: #5b43a5;
+
+    font-size: 17px;
+}
+
+.result {
+    background: #faf9ff;
+
+    border: 1px solid #e5e0f2;
+
+    border-radius: 10px;
+
+    padding: 14px;
+
+    min-height: 50px;
+
+    white-space: pre-wrap;
+
+    line-height: 1.5;
+
+    color: #40394e;
+}
+
+
+/* FULL WIDTH */
+
+.full-width {
+    grid-column: 1 / -1;
+}
+
+
+/* ANSWER */
+
+.answer-card {
+    border-left: 5px solid #7654d6;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+
+    .hero {
+        padding: 25px 20px;
+    }
+
+    .hero h1 {
+        font-size: 25px;
+    }
+
+    .container {
+        padding: 20px 14px;
+    }
+
+    .results-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .full-width {
+        grid-column: auto;
+    }
+
+    textarea {
+        min-height: 160px;
+    }
+}

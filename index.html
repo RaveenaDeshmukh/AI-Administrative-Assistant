@@ -1,0 +1,1625 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>AI Administrative Assistant</title>
+
+
+    <style>
+
+        /* =========================================
+           GLOBAL
+        ========================================= */
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #f5f0ff,
+                    #ffffff
+                );
+
+            color: #29213f;
+        }
+
+
+        /* =========================================
+           MAIN CONTAINER
+        ========================================= */
+
+        .container {
+            width: 95%;
+            max-width: 1100px;
+            margin: 30px auto;
+        }
+
+
+        /* =========================================
+           HEADER
+        ========================================= */
+
+        .header {
+            background:
+                linear-gradient(
+                    135deg,
+                    #6c45d9,
+                    #8b5cf6
+                );
+
+            color: white;
+
+            padding: 35px 25px;
+
+            border-radius: 24px;
+
+            text-align: center;
+
+            box-shadow:
+                0 10px 30px
+                rgba(90, 60, 170, 0.20);
+        }
+
+
+        .header h1 {
+            margin: 0 0 10px;
+
+            font-size: 34px;
+        }
+
+
+        .header p {
+            margin: 0;
+
+            font-size: 17px;
+
+            opacity: 0.95;
+        }
+
+
+        /* =========================================
+           API SECTION
+        ========================================= */
+
+        .api-section {
+
+            background: #ffffff;
+
+            margin-top: 25px;
+
+            padding: 25px;
+
+            border-radius: 20px;
+
+            border: 1px solid #e5dcff;
+
+            box-shadow:
+                0 6px 20px
+                rgba(80, 60, 140, 0.08);
+        }
+
+
+        .api-section label {
+
+            display: block;
+
+            font-size: 18px;
+
+            font-weight: bold;
+
+            margin-bottom: 10px;
+
+            color: #382568;
+        }
+
+
+        #apiKey {
+
+            width: 100%;
+
+            padding: 14px;
+
+            border: 1px solid #d7cef0;
+
+            border-radius: 12px;
+
+            font-size: 16px;
+
+            outline: none;
+        }
+
+
+        #apiKey:focus {
+
+            border-color: #7652d9;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(118, 82, 217, 0.12);
+        }
+
+
+        .api-help {
+
+            margin-top: 9px;
+
+            color: #777;
+
+            font-size: 13px;
+        }
+
+
+        /* =========================================
+           EMAIL CARD
+        ========================================= */
+
+        .email-section {
+
+            background: white;
+
+            margin-top: 25px;
+
+            padding: 30px;
+
+            border-radius: 22px;
+
+            box-shadow:
+                0 8px 30px
+                rgba(80, 60, 140, 0.08);
+        }
+
+
+        .email-section h2 {
+
+            margin-top: 0;
+
+            color: #382568;
+        }
+
+
+        /* =========================================
+           EMAIL TEXTAREA
+        ========================================= */
+
+        #email {
+
+            width: 100%;
+
+            min-height: 260px;
+
+            resize: vertical;
+
+            padding: 18px;
+
+            font-size: 16px;
+
+            line-height: 1.6;
+
+            border: 1px solid #dcd6e8;
+
+            border-radius: 15px;
+
+            outline: none;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+        }
+
+
+        #email:focus {
+
+            border-color: #7652d9;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(118, 82, 217, 0.12);
+        }
+
+
+        /* =========================================
+           QUESTION
+        ========================================= */
+
+        .question-section {
+
+            margin-top: 25px;
+        }
+
+
+        .question-section h3 {
+
+            color: #382568;
+
+            margin-bottom: 10px;
+        }
+
+
+        #question {
+
+            width: 100%;
+
+            padding: 14px;
+
+            border: 1px solid #dcd6e8;
+
+            border-radius: 12px;
+
+            font-size: 16px;
+
+            outline: none;
+        }
+
+
+        #question:focus {
+
+            border-color: #7652d9;
+        }
+
+
+        /* =========================================
+           BUTTONS
+        ========================================= */
+
+        .button-row {
+
+            display: flex;
+
+            gap: 12px;
+
+            margin-top: 25px;
+
+            flex-wrap: wrap;
+        }
+
+
+        button {
+
+            border: none;
+
+            border-radius: 12px;
+
+            padding: 14px 24px;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+
+        #analyzeBtn {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #7048d9,
+                    #8b5cf6
+                );
+
+            color: white;
+        }
+
+
+        #analyzeBtn:hover {
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 6px 15px
+                rgba(100, 70, 200, 0.25);
+        }
+
+
+        #analyzeBtn:disabled {
+
+            opacity: 0.6;
+
+            cursor: not-allowed;
+
+            transform: none;
+        }
+
+
+        #clearBtn {
+
+            background: #eeeeee;
+
+            color: #333;
+        }
+
+
+        #clearBtn:hover {
+
+            background: #dddddd;
+        }
+
+
+        /* =========================================
+           LOADING
+        ========================================= */
+
+        .loading-box {
+
+            display: none;
+
+            margin-top: 20px;
+
+            padding: 18px;
+
+            text-align: center;
+
+            background: #f0eaff;
+
+            color: #6740c7;
+
+            border-radius: 14px;
+
+            font-weight: bold;
+        }
+
+
+        /* =========================================
+           ERROR
+        ========================================= */
+
+        .error-box {
+
+            display: none;
+
+            margin-top: 20px;
+
+            padding: 16px;
+
+            background: #fff0f0;
+
+            color: #b42318;
+
+            border: 1px solid #ffcaca;
+
+            border-radius: 12px;
+
+            line-height: 1.5;
+        }
+
+
+        /* =========================================
+           AI ANALYSIS
+        ========================================= */
+
+        .analysis-section {
+
+            background: white;
+
+            margin-top: 30px;
+
+            padding: 30px;
+
+            border-radius: 22px;
+
+            box-shadow:
+                0 8px 30px
+                rgba(80, 60, 140, 0.08);
+        }
+
+
+        .analysis-header {
+
+            margin-bottom: 25px;
+        }
+
+
+        .analysis-header h2 {
+
+            margin: 0 0 7px;
+
+            color: #30205f;
+
+            font-size: 28px;
+        }
+
+
+        .analysis-header p {
+
+            margin: 0;
+
+            color: #777;
+        }
+
+
+        /* =========================================
+           ANALYSIS CARDS
+        ========================================= */
+
+        .analysis-card {
+
+            background: #faf9ff;
+
+            border: 1px solid #e8e1ff;
+
+            border-radius: 16px;
+
+            padding: 20px;
+
+            margin-bottom: 18px;
+        }
+
+
+        .analysis-card h3 {
+
+            margin-top: 0;
+
+            margin-bottom: 12px;
+
+            color: #382568;
+
+            font-size: 18px;
+        }
+
+
+        .result-box {
+
+            background: white;
+
+            border: 1px solid #e5e5e5;
+
+            border-radius: 12px;
+
+            padding: 15px;
+
+            min-height: 45px;
+
+            line-height: 1.6;
+
+            white-space: pre-wrap;
+
+            color: #333;
+
+            overflow-wrap: anywhere;
+        }
+
+
+        /* =========================================
+           CATEGORY + PRIORITY
+        ========================================= */
+
+        .result-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 18px;
+        }
+
+
+        /* =========================================
+           FOOTER
+        ========================================= */
+
+        .footer {
+
+            text-align: center;
+
+            margin: 30px 0;
+
+            color: #777;
+
+            font-size: 13px;
+        }
+
+
+        /* =========================================
+           TABLET / MOBILE
+        ========================================= */
+
+        @media (max-width: 700px) {
+
+            .container {
+
+                width: 94%;
+
+                margin: 15px auto;
+            }
+
+
+            .header {
+
+                padding: 25px 18px;
+
+                border-radius: 18px;
+            }
+
+
+            .header h1 {
+
+                font-size: 27px;
+            }
+
+
+            .email-section,
+            .analysis-section,
+            .api-section {
+
+                padding: 20px;
+
+                border-radius: 18px;
+            }
+
+
+            .result-grid {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .button-row {
+
+                flex-direction: column;
+            }
+
+
+            button {
+
+                width: 100%;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <!-- =====================================
+         HEADER
+    ====================================== -->
+
+    <header class="header">
+
+        <h1>
+            🤖 AI Administrative Assistant
+        </h1>
+
+        <p>
+            Smart Email Processing & Automation
+        </p>
+
+    </header>
+
+
+
+    <!-- =====================================
+         GEMINI API KEY
+    ====================================== -->
+
+    <div class="api-section">
+
+        <label for="apiKey">
+
+            🔑 Gemini API Key
+
+        </label>
+
+
+        <input
+            type="password"
+            id="apiKey"
+            placeholder="Paste your Gemini API key"
+            autocomplete="off"
+        >
+
+
+        <div class="api-help">
+
+            Your key is used only in your browser
+            for this session.
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================
+         EMAIL INPUT
+    ====================================== -->
+
+    <section class="email-section">
+
+        <h2>
+            📥 Paste Your Email
+        </h2>
+
+
+        <textarea
+            id="email"
+            placeholder="Paste your email here..."
+        ></textarea>
+
+
+
+        <!-- QUESTION -->
+
+        <div class="question-section">
+
+            <h3>
+                ❓ Ask a Question (Optional)
+            </h3>
+
+
+            <input
+                type="text"
+                id="question"
+                placeholder="Example: What do I need to prepare?"
+            >
+
+        </div>
+
+
+
+        <!-- BUTTONS -->
+
+        <div class="button-row">
+
+            <button
+                id="analyzeBtn"
+                onclick="analyzeEmail()"
+            >
+
+                ✨ Analyze Email
+
+            </button>
+
+
+            <button
+                id="clearBtn"
+                onclick="clearForm()"
+            >
+
+                🧹 Clear
+
+            </button>
+
+        </div>
+
+
+
+        <!-- LOADING -->
+
+        <div
+            id="loading"
+            class="loading-box"
+        >
+
+            ✨ Gemini is analyzing your email...
+
+        </div>
+
+
+
+        <!-- ERROR -->
+
+        <div
+            id="error"
+            class="error-box"
+        ></div>
+
+    </section>
+
+
+
+    <!-- =====================================
+         AI ANALYSIS
+    ====================================== -->
+
+    <section
+        class="analysis-section"
+        id="aiAnalysis"
+    >
+
+
+        <div class="analysis-header">
+
+            <h2>
+                🤖 AI Analysis
+            </h2>
+
+            <p>
+                Gemini-generated administrative insights
+            </p>
+
+        </div>
+
+
+
+        <!-- SUMMARY -->
+
+        <div class="analysis-card">
+
+            <h3>
+                📝 Summary
+            </h3>
+
+
+            <div
+                id="summary"
+                class="result-box"
+            >
+
+                Your email summary will appear here.
+
+            </div>
+
+        </div>
+
+
+
+        <!-- CATEGORY + PRIORITY -->
+
+        <div class="result-grid">
+
+
+            <div class="analysis-card">
+
+                <h3>
+                    📁 Category
+                </h3>
+
+
+                <div
+                    id="category"
+                    class="result-box"
+                >
+
+                    Not analyzed yet.
+
+                </div>
+
+            </div>
+
+
+
+            <div class="analysis-card">
+
+                <h3>
+                    🚦 Priority
+                </h3>
+
+
+                <div
+                    id="priority"
+                    class="result-box"
+                >
+
+                    Not analyzed yet.
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- DEADLINE -->
+
+        <div class="analysis-card">
+
+            <h3>
+                📅 Deadline / Meeting
+            </h3>
+
+
+            <div
+                id="deadline"
+                class="result-box"
+            >
+
+                No deadline detected yet.
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ACTION ITEMS -->
+
+        <div class="analysis-card">
+
+            <h3>
+                ✅ Action Items
+            </h3>
+
+
+            <div
+                id="actions"
+                class="result-box"
+            >
+
+                No action items detected yet.
+
+            </div>
+
+        </div>
+
+
+
+        <!-- PROFESSIONAL REPLY -->
+
+        <div class="analysis-card">
+
+            <h3>
+                ✉️ Professional Reply
+            </h3>
+
+
+            <div
+                id="reply"
+                class="result-box"
+            >
+
+                Your professional reply will appear here.
+
+            </div>
+
+        </div>
+
+
+
+        <!-- QUESTION ANSWER -->
+
+        <div class="analysis-card">
+
+            <h3>
+                💡 Answer to Your Question
+            </h3>
+
+
+            <div
+                id="answer"
+                class="result-box"
+            >
+
+                Ask an optional question about the email.
+
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =====================================
+         FOOTER
+    ====================================== -->
+
+    <div class="footer">
+
+        AI Administrative Assistant
+        • Powered by Gemini
+
+    </div>
+
+
+</div>
+
+
+
+<!-- ==========================================
+     JAVASCRIPT
+========================================== -->
+
+<script>
+
+
+/* =========================================
+   GEMINI MODEL
+========================================= */
+
+/*
+   This is the model used by the REST request.
+
+   If your Gemini account does not support this
+   model, use the model name available in your
+   Google AI Studio project.
+*/
+
+const GEMINI_MODEL = "gemini-3.6-flash";
+
+
+/* =========================================
+   GET ELEMENTS
+========================================= */
+
+const apiKeyInput =
+    document.getElementById("apiKey");
+
+const emailInput =
+    document.getElementById("email");
+
+const questionInput =
+    document.getElementById("question");
+
+const analyzeBtn =
+    document.getElementById("analyzeBtn");
+
+const loadingBox =
+    document.getElementById("loading");
+
+const errorBox =
+    document.getElementById("error");
+
+
+
+/* =========================================
+   SHOW ERROR
+========================================= */
+
+function showError(message) {
+
+    errorBox.textContent = message;
+
+    errorBox.style.display = "block";
+}
+
+
+/* =========================================
+   HIDE ERROR
+========================================= */
+
+function hideError() {
+
+    errorBox.textContent = "";
+
+    errorBox.style.display = "none";
+}
+
+
+/* =========================================
+   ANALYZE EMAIL
+========================================= */
+
+async function analyzeEmail() {
+
+    hideError();
+
+
+    /* -------------------------------
+       GET VALUES
+    -------------------------------- */
+
+    const apiKey =
+        apiKeyInput.value.trim();
+
+    const email =
+        emailInput.value.trim();
+
+    const question =
+        questionInput.value.trim();
+
+
+    /* -------------------------------
+       VALIDATION
+    -------------------------------- */
+
+    if (!apiKey) {
+
+        showError(
+            "Please enter your Gemini API key."
+        );
+
+        apiKeyInput.focus();
+
+        return;
+    }
+
+
+    if (!email) {
+
+        showError(
+            "Please paste an email before analyzing."
+        );
+
+        emailInput.focus();
+
+        return;
+    }
+
+
+    /* -------------------------------
+       UI LOADING STATE
+    -------------------------------- */
+
+    analyzeBtn.disabled = true;
+
+    analyzeBtn.textContent =
+        "⏳ Analyzing...";
+
+    loadingBox.style.display = "block";
+
+
+    /* -------------------------------
+       CLEAR OLD RESULTS
+    -------------------------------- */
+
+    setResult(
+        "summary",
+        "Analyzing..."
+    );
+
+    setResult(
+        "category",
+        "Analyzing..."
+    );
+
+    setResult(
+        "priority",
+        "Analyzing..."
+    );
+
+    setResult(
+        "deadline",
+        "Analyzing..."
+    );
+
+    setResult(
+        "actions",
+        "Analyzing..."
+    );
+
+    setResult(
+        "reply",
+        "Generating..."
+    );
+
+    setResult(
+        "answer",
+        question
+            ? "Answering..."
+            : "No question provided."
+    );
+
+
+    /* =================================
+       PROMPT
+    ================================= */
+
+    const prompt = `
+
+You are an AI Administrative Assistant.
+
+Analyze the following email for administrative
+and office-work purposes.
+
+Return ONLY valid JSON.
+
+The JSON must contain exactly these fields:
+
+{
+  "summary": "",
+  "category": "",
+  "priority": "",
+  "deadline": "",
+  "actions": "",
+  "reply": "",
+  "answer": ""
+}
+
+CATEGORY must be exactly one of:
+
+HR
+Finance
+IT Support
+Meeting
+Operations
+Marketing
+Legal
+General
+Spam
+
+PRIORITY must be exactly one of:
+
+High
+Medium
+Low
+
+DEADLINE:
+Extract meeting date, meeting time, deadline,
+or due date if present.
+
+If there is no deadline, write:
+
+No deadline specified
+
+ACTION ITEMS:
+Extract tasks that need to be completed.
+
+If there are no action items, write:
+
+No action items specified
+
+REPLY:
+Write a concise, professional administrative
+reply appropriate to the email.
+
+QUESTION:
+${question || "No question was provided."}
+
+If a question was provided, answer it using
+only information available in the email.
+
+If no question was provided, write:
+
+No question provided.
+
+EMAIL:
+
+${email}
+
+`;
+
+
+    try {
+
+
+        /* =================================
+           GEMINI API REQUEST
+        ================================= */
+
+        const response = await fetch(
+
+            `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`,
+
+            {
+
+                method: "POST",
+
+                headers: {
+
+                    "Content-Type":
+                        "application/json",
+
+                    "x-goog-api-key":
+                        apiKey
+
+                },
+
+                body: JSON.stringify({
+
+                    contents: [
+
+                        {
+
+                            role: "user",
+
+                            parts: [
+
+                                {
+                                    text: prompt
+                                }
+
+                            ]
+
+                        }
+
+                    ],
+
+                    generationConfig: {
+
+                        temperature: 0.2,
+
+                        responseMimeType:
+                            "application/json"
+
+                    }
+
+                })
+
+            }
+
+        );
+
+
+        /* =================================
+           CHECK RESPONSE
+        ================================= */
+
+        if (!response.ok) {
+
+            const errorText =
+                await response.text();
+
+            throw new Error(
+                `Gemini API error (${response.status}): ${errorText}`
+            );
+        }
+
+
+        const data =
+            await response.json();
+
+
+        /* =================================
+           GET GENERATED TEXT
+        ================================= */
+
+        const generatedText =
+            data
+                ?.candidates?.[0]
+                ?.content?.parts?.[0]
+                ?.text;
+
+
+        if (!generatedText) {
+
+            throw new Error(
+                "Gemini returned an empty response."
+            );
+        }
+
+
+        /* =================================
+           PARSE JSON
+        ================================= */
+
+        let result;
+
+
+        try {
+
+            result =
+                JSON.parse(generatedText);
+
+        } catch (jsonError) {
+
+            /*
+               Sometimes a model can return
+               ```json ... ```.
+            */
+
+            const cleaned =
+                generatedText
+                    .replace(
+                        /```json/gi,
+                        ""
+                    )
+                    .replace(
+                        /```/g,
+                        ""
+                    )
+                    .trim();
+
+
+            result =
+                JSON.parse(cleaned);
+        }
+
+
+        /* =================================
+           DISPLAY RESULTS
+        ================================= */
+
+        setResult(
+            "summary",
+            result.summary ||
+            "No summary available."
+        );
+
+
+        setResult(
+            "category",
+            result.category ||
+            "General"
+        );
+
+
+        setResult(
+            "priority",
+            result.priority ||
+            "Low"
+        );
+
+
+        setResult(
+            "deadline",
+            result.deadline ||
+            "No deadline specified."
+        );
+
+
+        setResult(
+            "actions",
+            result.actions ||
+            "No action items specified."
+        );
+
+
+        setResult(
+            "reply",
+            result.reply ||
+            "No reply generated."
+        );
+
+
+        setResult(
+            "answer",
+            result.answer ||
+            "No answer available."
+        );
+
+
+        /* -------------------------------
+           SUCCESS
+        -------------------------------- */
+
+        loadingBox.textContent =
+            "✅ Email analysis completed successfully.";
+
+        setTimeout(
+            function () {
+
+                loadingBox.style.display =
+                    "none";
+
+            },
+            2500
+        );
+
+
+        /* -------------------------------
+           SCROLL TO RESULTS
+        -------------------------------- */
+
+        document
+            .getElementById("aiAnalysis")
+            .scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+
+
+    }
+
+
+    catch (error) {
+
+        console.error(
+            "Gemini Error:",
+            error
+        );
+
+
+        showError(
+            "Unable to analyze the email. " +
+            "Please check your API key, internet connection, " +
+            "Gemini model access, and API quota."
+        );
+
+
+        /* Restore defaults */
+
+        setResult(
+            "summary",
+            "Analysis failed."
+        );
+
+        setResult(
+            "category",
+            "Not analyzed."
+        );
+
+        setResult(
+            "priority",
+            "Not analyzed."
+        );
+
+        setResult(
+            "deadline",
+            "Not analyzed."
+        );
+
+        setResult(
+            "actions",
+            "Not analyzed."
+        );
+
+        setResult(
+            "reply",
+            "Not generated."
+        );
+
+        setResult(
+            "answer",
+            "Not available."
+        );
+
+    }
+
+
+    finally {
+
+        analyzeBtn.disabled = false;
+
+        analyzeBtn.textContent =
+            "✨ Analyze Email";
+
+        loadingBox.style.display =
+            "none";
+    }
+
+}
+
+
+
+/* =========================================
+   SET RESULT
+========================================= */
+
+function setResult(
+    elementId,
+    value
+) {
+
+    const element =
+        document.getElementById(
+            elementId
+        );
+
+
+    if (!element) {
+
+        console.error(
+            "Element not found:",
+            elementId
+        );
+
+        return;
+    }
+
+
+    element.textContent =
+        value ?? "";
+
+}
+
+
+
+/* =========================================
+   CLEAR FORM
+========================================= */
+
+function clearForm() {
+
+    emailInput.value = "";
+
+    questionInput.value = "";
+
+
+    setResult(
+        "summary",
+        "Your email summary will appear here."
+    );
+
+
+    setResult(
+        "category",
+        "Not analyzed yet."
+    );
+
+
+    setResult(
+        "priority",
+        "Not analyzed yet."
+    );
+
+
+    setResult(
+        "deadline",
+        "No deadline detected yet."
+    );
+
+
+    setResult(
+        "actions",
+        "No action items detected yet."
+    );
+
+
+    setResult(
+        "reply",
+        "Your professional reply will appear here."
+    );
+
+
+    setResult(
+        "answer",
+        "Ask an optional question about the email."
+    );
+
+
+    hideError();
+
+
+    loadingBox.style.display =
+        "none";
+
+
+    emailInput.focus();
+
+}
+
+
+/* =========================================
+   ENTER KEY SUPPORT
+========================================= */
+
+questionInput.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key === "Enter" &&
+            !event.shiftKey
+        ) {
+
+            event.preventDefault();
+
+            analyzeEmail();
+
+        }
+
+    }
+);
+
+
+/* =========================================
+   PAGE LOADED
+========================================= */
+
+console.log(
+    "🤖 AI Administrative Assistant loaded."
+);
+
+console.log(
+    "Gemini static API interface ready."
+);
+
+
+</script>
+
+
+</body>
+
+</html>
